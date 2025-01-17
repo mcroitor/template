@@ -5,10 +5,10 @@
 ```php
 $template = "<article><h2><!-- title --></h2>" .
     "<p><!-- body --></p></article>";
-$tpl = new \mc\template($template);
+$tpl = new \mc\template($template, \mc\template::comment_modifiers);
 echo $tpl->fill([
-    "<!-- title -->" => "Article title",
-    "<!-- body -->" => "Article body",
+    "title" => "Article title",
+    "body" => "Article body",
 ])->value();
 ```
 
@@ -41,12 +41,26 @@ namespace mc;
 
 class template
 {
+    public const prefix = "prefix";
+    public const suffix = "suffix";
+
+    public const comment_modifiers = [self::prefix => "<!-- ", self::suffix => " -->"];
+    public const bracket_modifiers = [self::prefix => "{{", self::suffix => "}}"];
+    
     /**
      *
      * @param string $template
      * @param array $modifiers
      */
     public function __construct(string $template, array $modifiers = []);
+
+    /**
+     * Create new template object from file
+     * @param string $file
+     * @param array $modifiers
+     * @return template
+     */
+    public static function load(string $file, array $modifiers = []): template
 
     /**
      * set filler prefix
