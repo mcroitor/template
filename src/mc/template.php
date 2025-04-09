@@ -55,7 +55,14 @@ class template
      */
     public static function load(string $file, array $modifiers = []): template
     {
-        return new template(file_get_contents($file), $modifiers);
+        if (!file_exists($file) || !is_readable($file)) {
+            throw new \Exception("File not found: " . $file);
+        }
+        $content = file_get_contents($file);
+        if ($content === false) {
+            throw new \Exception("File not readable: " . $file);
+        }
+        return new template($content, $modifiers);
     }
 
     /**
