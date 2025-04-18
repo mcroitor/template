@@ -5,11 +5,11 @@
 ```php
 $template = "<article><h2><!-- title --></h2>" .
     "<p><!-- body --></p></article>";
-$tpl = new \mc\template($template, \mc\template::comment_modifiers);
-echo $tpl->fill([
+$tpl = new \Mc\Template($template, \Mc\Template::CM);
+echo $tpl->Fill([
     "title" => "Article title",
     "body" => "Article body",
-])->value();
+])->Value();
 ```
 
 ## testing
@@ -37,16 +37,30 @@ and install it.
 ## interface
 
 ```php
-namespace mc;
+namespace Mc;
 
-class template
+/**
+ * simple template filler
+ *
+ * @author Croitor Mihail <mcroitor@gmail.com>
+ */
+class Template
 {
-    public const prefix = "prefix";
-    public const suffix = "suffix";
+    public const PREFIX = "PREFIX";
+    public const SUFFIX = "SUFFIX";
 
-    public const comment_modifiers = [self::prefix => "<!-- ", self::suffix => " -->"];
-    public const bracket_modifiers = [self::prefix => "{{", self::suffix => "}}"];
-    
+    public const COMMENT_MODIFIERS = [
+        self::PREFIX => "<!-- ",
+        self::SUFFIX => " -->",
+    ];
+    public const BRACKET_MODIFIERS = [
+        self::PREFIX => "{{",
+        self::SUFFIX => "}}",
+    ];
+
+    public const CM = self::COMMENT_MODIFIERS;
+    public const BR = self::BRACKET_MODIFIERS;
+
     /**
      *
      * @param string $template
@@ -58,46 +72,44 @@ class template
      * Create new template object from file
      * @param string $file
      * @param array $modifiers
-     * @return template
+     * @return \Mc\Template
      */
-    public static function load(string $file, array $modifiers = []): template
+    public static function Load(string $file, array $modifiers = []): Template;
 
     /**
      * set filler prefix
      * @param string $prefix
      */
-    public function set_prefix(string $prefix);
+    public function SetPrefix(string $prefix): void;
 
     /**
      * set filler suffix
      * @param string $suffix
      */
-    public function set_suffix(string $suffix);
+    public function SetSuffix(string $suffix): void;
 
     /**
      * $data is a simple list of pairs <i>$pattern</i> => <i>$value</i>
      * Method replace <i>$pattern</i> with <i>$value</i>
      * and return new template object
      * Example:
-     * <pre>$template->fill($data1)->fill(data2)->value();</pre>
+     * <pre>$template->Fill($data1)->Fill(data2)->Value();</pre>
      * @param array $data
-     * @return \template
+     * @return \Mc\Template
      */
-    public function fill(array $data): template;
-
+    public function Fill(array $data): Template;
     /**
      * Replace single $pattern with $value
      * @param string $pattern
      * @param string $value
-     * @return \template
+     * @return \Mc\Template
      */
-    public function fill_value(string $pattern, string $value): template;
+    public function FillValue(string $pattern, string $value): Template;
 
     /**
      * returns template value
      * @return string
      */
-    public function value(): string;
+    public function Value(): string;
 }
-
 ```

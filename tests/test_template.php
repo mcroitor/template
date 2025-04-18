@@ -1,5 +1,7 @@
 <?php
 
+use Mc\Template;
+
 class test_template
 {
 
@@ -15,11 +17,11 @@ class test_template
 
         info("template : ", $template);
 
-        $tpl = new \mc\template($template);
-        $result = $tpl->fill([
+        $tpl = new Template($template);
+        $result = $tpl->Fill([
             "<!-- title -->" => "Article title",
             "<!-- body -->" => "Article body",
-        ])->value();
+        ])->Value();
 
         info("result : ", $result);
         test($expected_result === $result);
@@ -37,11 +39,11 @@ class test_template
 
         info("template : ", $template);
 
-        $tpl = new \mc\template($template, ["prefix" => "<!-- ", "suffix" => " -->"]);
-        $result = $tpl->fill([
+        $tpl = new Template($template, ["PREFIX" => "<!-- ", "SUFFIX" => " -->"]);
+        $result = $tpl->Fill([
             "title" => "Article title",
             "body" => "Article body",
-        ])->value();
+        ])->Value();
 
         info("result : ", $result);
         test($expected_result === $result);
