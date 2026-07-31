@@ -18,10 +18,10 @@ class test_template
         info("template : ", $template);
 
         $tpl = new Template($template);
-        $result = $tpl->Fill([
+        $result = $tpl->fill([
             "<!-- title -->" => "Article title",
             "<!-- body -->" => "Article body",
-        ])->Value();
+        ])->value();
 
         info("result : ", $result);
         test($expected_result === $result);
@@ -40,10 +40,10 @@ class test_template
         info("template : ", $template);
 
         $tpl = new Template($template, ["PREFIX" => "<!-- ", "SUFFIX" => " -->"]);
-        $result = $tpl->Fill([
+        $result = $tpl->fill([
             "title" => "Article title",
             "body" => "Article body",
-        ])->Value();
+        ])->value();
 
         info("result : ", $result);
         test($expected_result === $result);

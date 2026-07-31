@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . '/../src/mc/template.php';
+include_once __DIR__ . '/../src/Mc/Template.php';
 
 function test(bool $expression, string $passed = "PASS", string $failed = "FAIL"): void {
     echo $expression ? $passed : $failed;

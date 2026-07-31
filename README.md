@@ -6,10 +6,10 @@
 $template = "<article><h2><!-- title --></h2>" .
     "<p><!-- body --></p></article>";
 $tpl = new \Mc\Template($template, \Mc\Template::CM);
-echo $tpl->Fill([
+echo $tpl->fill([
     "title" => "Article title",
     "body" => "Article body",
-])->Value();
+])->value();
 ```
 
 ## testing
@@ -74,42 +74,42 @@ class Template
      * @param array $modifiers
      * @return \Mc\Template
      */
-    public static function Load(string $file, array $modifiers = []): Template;
+    public static function load(string $file, array $modifiers = []): Template;
 
     /**
      * set filler prefix
      * @param string $prefix
      */
-    public function SetPrefix(string $prefix): void;
+    public function setPrefix(string $prefix): void;
 
     /**
      * set filler suffix
      * @param string $suffix
      */
-    public function SetSuffix(string $suffix): void;
+    public function setSuffix(string $suffix): void;
 
     /**
      * $data is a simple list of pairs <i>$pattern</i> => <i>$value</i>
      * Method replace <i>$pattern</i> with <i>$value</i>
      * and return new template object
      * Example:
-     * <pre>$template->Fill($data1)->Fill(data2)->Value();</pre>
+     * <pre>$template->fill($data1)->fill(data2)->value();</pre>
      * @param array $data
      * @return \Mc\Template
      */
-    public function Fill(array $data): Template;
+    public function fill(array $data): Template;
     /**
      * Replace single $pattern with $value
      * @param string $pattern
      * @param string $value
      * @return \Mc\Template
      */
-    public function FillValue(string $pattern, string $value): Template;
+    public function fillValue(string $pattern, string $value): Template;
 
     /**
      * returns template value
      * @return string
      */
-    public function Value(): string;
+    public function value(): string;
 }
 ```
